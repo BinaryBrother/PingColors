@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "D:\\Dropbox\\Projects\\PingColors\\PingColors\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F050C6F4-EEF7-4AED-A79B-928E33373DCC}|PingColors\\PingColors.csproj|d:\\dropbox\\projects\\pingcolors\\pingcolors\\pingcolors\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{F050C6F4-EEF7-4AED-A79B-928E33373DCC}|PingColors\\PingColors.csproj|solutionrelative:pingcolors\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{222E9C4D-CA5D-99B3-6616-96289DF6965A}|PingColors\\PingColors.csproj|d:\\dropbox\\projects\\pingcolors\\pingcolors\\pingcolors\\custom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{222E9C4D-CA5D-99B3-6616-96289DF6965A}|PingColors\\PingColors.csproj|solutionrelative:pingcolors\\custom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F050C6F4-EEF7-4AED-A79B-928E33373DCC}|PingColors\\PingColors.csproj|d:\\dropbox\\projects\\pingcolors\\pingcolors\\pingcolors\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F050C6F4-EEF7-4AED-A79B-928E33373DCC}|PingColors\\PingColors.csproj|solutionrelative:pingcolors\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{222E9C4D-CA5D-99B3-6616-96289DF6965A}|PingColors\\PingColors.csproj|d:\\dropbox\\projects\\pingcolors\\pingcolors\\pingcolors\\cli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{222E9C4D-CA5D-99B3-6616-96289DF6965A}|PingColors\\PingColors.csproj|solutionrelative:pingcolors\\cli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F050C6F4-EEF7-4AED-A79B-928E33373DCC}|PingColors\\PingColors.csproj|d:\\dropbox\\projects\\pingcolors\\pingcolors\\pingcolors\\custom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F050C6F4-EEF7-4AED-A79B-928E33373DCC}|PingColors\\PingColors.csproj|solutionrelative:pingcolors\\custom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F050C6F4-EEF7-4AED-A79B-928E33373DCC}|PingColors\\PingColors.csproj|d:\\dropbox\\projects\\pingcolors\\pingcolors\\pingcolors\\cli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F050C6F4-EEF7-4AED-A79B-928E33373DCC}|PingColors\\PingColors.csproj|solutionrelative:pingcolors\\cli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{222E9C4D-CA5D-99B3-6616-96289DF6965A}|PingColors\\PingColors.csproj|d:\\dropbox\\projects\\pingcolors\\pingcolors\\pingcolors\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{222E9C4D-CA5D-99B3-6616-96289DF6965A}|PingColors\\PingColors.csproj|solutionrelative:pingcolors\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,51 +27,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": ".gitignore",
-              "DocumentMoniker": "D:\\Dropbox\\Projects\\PingColors\\PingColors\\PingColors\\.gitignore",
-              "RelativeDocumentMoniker": "PingColors\\.gitignore",
-              "ToolTip": "D:\\Dropbox\\Projects\\PingColors\\PingColors\\PingColors\\.gitignore",
-              "RelativeToolTip": "PingColors\\.gitignore",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-05-27T03:01:47.906Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "Custom.cs",
               "DocumentMoniker": "D:\\Dropbox\\Projects\\PingColors\\PingColors\\PingColors\\Custom.cs",
               "RelativeDocumentMoniker": "PingColors\\Custom.cs",
               "ToolTip": "D:\\Dropbox\\Projects\\PingColors\\PingColors\\PingColors\\Custom.cs",
               "RelativeToolTip": "PingColors\\Custom.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAB5AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEsAAACAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-27T02:45:51.798Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "CLI.cs",
               "DocumentMoniker": "D:\\Dropbox\\Projects\\PingColors\\PingColors\\PingColors\\CLI.cs",
               "RelativeDocumentMoniker": "PingColors\\CLI.cs",
               "ToolTip": "D:\\Dropbox\\Projects\\PingColors\\PingColors\\PingColors\\CLI.cs",
               "RelativeToolTip": "PingColors\\CLI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAEwDMAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAlwDMAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-27T02:45:16.421Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Dropbox\\Projects\\PingColors\\PingColors\\PingColors\\Program.cs",
               "RelativeDocumentMoniker": "PingColors\\Program.cs",
               "ToolTip": "D:\\Dropbox\\Projects\\PingColors\\PingColors\\PingColors\\Program.cs",
               "RelativeToolTip": "PingColors\\Program.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAEwBUAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAEwBoAAABjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-27T02:43:23.85Z",
               "EditorCaption": ""

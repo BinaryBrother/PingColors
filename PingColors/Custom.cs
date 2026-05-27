@@ -73,7 +73,7 @@ namespace PingColors
             }
         }
 
-        internal static void Ping(IPAddress Host, int Timeout, int WarningResponseTime, int CriticalResponseTime, bool SpeedMode)
+        internal static void Ping(IPAddress host, int timeout, int warningResponseTime, int criticalResponseTime, bool speedMode)
         {
             Ping pingSender = new Ping();
             while (true)
@@ -81,19 +81,19 @@ namespace PingColors
                 try
                 {
                     // Send a basic ping request
-                    PingReply reply = pingSender.Send(Host, Timeout);
+                    PingReply reply = pingSender.Send(host, timeout);
 
                     if (reply.Status == IPStatus.Success)
                     {
-                        if (reply.RoundtripTime < WarningResponseTime)
+                        if (reply.RoundtripTime < warningResponseTime)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                         }
-                        else if (reply.RoundtripTime >= WarningResponseTime && reply.RoundtripTime < CriticalResponseTime)
+                        else if (reply.RoundtripTime >= warningResponseTime && reply.RoundtripTime < criticalResponseTime)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkYellow;
                         }
-                        else if (reply.RoundtripTime >= CriticalResponseTime)
+                        else if (reply.RoundtripTime >= criticalResponseTime)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
@@ -108,7 +108,7 @@ namespace PingColors
                 {
                     Custom.Error($"Ping error: {e.Message}");
                 }
-                if (!SpeedMode) { Thread.Sleep(1000); } // Wait for 1 second before the next ping
+                if (!speedMode) { Thread.Sleep(1000); } // Wait for 1 second before the next ping
             }
         }
     }
