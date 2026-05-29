@@ -43,7 +43,7 @@ namespace PingColors
             }
             return Result;
         }
-        internal static void HandleArgs(ref int warningResponseTime, ref int criticalResponseTime, ref int timeout, ref IPAddress host, ref bool speedMode, string[] args)
+        internal void HandleArgs(ref int warningResponseTime, ref int criticalResponseTime, ref int timeout, ref IPAddress host, ref bool speedMode, string[] args)
         {
             try
             {

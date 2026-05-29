@@ -34,8 +34,8 @@ namespace PingColors
             Environment.Exit(0);
         }
 
-        internal static void ErrorChecking(int warningResponseTime, int criticalResponseTime, int timeout, IPAddress host)
-        {
+        internal void ErrorChecking(int warningResponseTime, int criticalResponseTime, int timeout, IPAddress host)
+        { 
             if (warningResponseTime <= 0)
             {
                 Custom.Error("Warning threshold must be a positive integer.");
@@ -73,7 +73,7 @@ namespace PingColors
             }
         }
 
-        internal static void Ping(IPAddress host, int timeout, int warningResponseTime, int criticalResponseTime, bool speedMode)
+        internal void Ping(IPAddress host, int timeout, int warningResponseTime, int criticalResponseTime, bool speedMode)
         {
             Ping pingSender = new Ping();
             while (true)

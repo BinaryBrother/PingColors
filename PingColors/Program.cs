@@ -20,13 +20,16 @@ namespace PingColors
             int timeout = 5000; // Default timeout for ping in milliseconds
             bool speedMode = false; // Default speed mode is off
             IPAddress? host = null;
+            
+            CLI commandLineInterface = new();
+            Custom customMethods = new();
 
             Console.CancelKeyPress += delegate { Console.ResetColor(); Console.WriteLine("Exiting..."); };
-            Console.Title = "Ping Colors";
+            Console.Title = "PingColors";
             if (args.Length == 0) { Custom.ShowHelp(); }
-            CLI.HandleArgs(ref warningResponseTime, ref criticalResponseTime, ref timeout, ref host, ref speedMode, args);
-            Custom.ErrorChecking(warningResponseTime, criticalResponseTime, timeout, host);
-            Custom.Ping(host, timeout, warningResponseTime, criticalResponseTime, speedMode);
+            commandLineInterface.HandleArgs(ref warningResponseTime, ref criticalResponseTime, ref timeout, ref host, ref speedMode, args);
+            customMethods.ErrorChecking(warningResponseTime, criticalResponseTime, timeout, host);
+            customMethods.Ping(host, timeout, warningResponseTime, criticalResponseTime, speedMode);
         }
     }
 }
