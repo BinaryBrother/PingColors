@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Net;
 
 namespace PingColors
 {
@@ -26,7 +17,7 @@ namespace PingColors
 
             Console.CancelKeyPress += delegate { Console.ResetColor(); Console.WriteLine("Exiting..."); };
             Console.Title = "PingColors";
-            if (args.Length == 0) { Custom.ShowHelp(); }
+
             commandLineInterface.HandleArgs(ref warningResponseTime, ref criticalResponseTime, ref timeout, ref host, ref speedMode, args);
             customMethods.ErrorChecking(warningResponseTime, criticalResponseTime, timeout, host);
             customMethods.Ping(host, timeout, warningResponseTime, criticalResponseTime, speedMode);

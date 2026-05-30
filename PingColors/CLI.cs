@@ -10,43 +10,11 @@ namespace PingColors
 {
     internal class CLI
     {
-        /// <summary>
-        /// A simple method to get the value of a command line argument. It checks for duplicates and missing values, throwing exceptions if necessary.
-        /// Accepts an array of two possible commands.
-        /// </summary>
-        /// <param name="pCommands"></param>
-        /// <param name="pArgs"></param>
-        /// <returns>Argument Value</returns>
-        /// <exception cref="Exception"></exception>
-        public static string GetValue(string[] pCommands, string[] pArgs)
-        {
-            int Iteration = 0;
-            string Result = "";
-            for (int i = 0; i < pCommands.Length; i++)
-            {
-                for (int j = 0; j < pArgs.Length; j++)
-                {
-                    if (pCommands[i] == pArgs[j])
-                    {
-                        Iteration++;
-                        if (Iteration > 1) { throw new Exception($"Duplicate arguments used!"); }
-                        if (j + 1 < pArgs.Length)
-                        {
-                            Result = pArgs[j + 1];
-                        }
-                        else
-                        {
-                            throw new Exception($"Value for {pCommands[i]} does not exist!");
-                        }
-                    }
-                }
-            }
-            return Result;
-        }
-        internal void HandleArgs(ref int warningResponseTime, ref int criticalResponseTime, ref int timeout, ref IPAddress host, ref bool speedMode, string[] args)
+        public void HandleArgs(ref int warningResponseTime, ref int criticalResponseTime, ref int timeout, ref IPAddress host, ref bool speedMode, string[] args)
         {
             try
             {
+                if (args.Length == 0) { Custom.ShowHelp(); }
                 for (int i = 0; i < args.Length; i++)
                 {
                     switch (args[i])
@@ -70,6 +38,7 @@ namespace PingColors
                             break;
                         case "--help":
                         case "-h":
+                        case "/?":
                             Custom.ShowHelp();
                             break;
                         default:
