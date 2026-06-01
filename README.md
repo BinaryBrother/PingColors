@@ -10,8 +10,12 @@ Options:
   -h, --help            Show this help message
 ```
 
-<img width="364" height="997" alt="image" src="https://github.com/user-attachments/assets/5943940e-e82a-48b1-a0be-7e1c87b102f3" />
-<img width="362" height="759" alt="image" src="https://github.com/user-attachments/assets/f9930240-fcd8-4b5f-be5b-ca7f453b2ad0" />
+# Screenshots
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/73bf27fe-6391-4794-9788-10379c186bc1" />
+<img width="968" height="1023" alt="image" src="https://github.com/user-attachments/assets/30505c5e-0b5a-45ff-bf65-cc8dbcb31046" />
+
+
+
 
 # Built with
-The .NET 10 Framework
+The .NET 10 Framework.
