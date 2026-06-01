@@ -73,31 +73,33 @@ namespace PingColors
             }
         }
 
-        internal void Ping(IPAddress host, int timeout, int warningResponseTime, int criticalResponseTime, bool speedMode)
+        internal void Ping(IPAddress pHost, int pTimeout, int pWarningResponseTime, int pCriticalResponseTime, bool pSpeedMode)
         {
-            Ping pingSender = new Ping();
+            Ping pPingSender = new Ping();
+            byte[] pBuffer = new byte[32];
+
             while (true)
             {
                 try
                 {
                     // Send a basic ping request
-                    PingReply reply = pingSender.Send(host, timeout);
+                    PingReply reply = pPingSender.Send(pHost, pTimeout, pBuffer);
 
                     if (reply.Status == IPStatus.Success)
                     {
-                        if (reply.RoundtripTime < warningResponseTime)
+                        if (reply.RoundtripTime < pWarningResponseTime)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                         }
-                        else if (reply.RoundtripTime >= warningResponseTime && reply.RoundtripTime < criticalResponseTime)
+                        else if (reply.RoundtripTime >= pWarningResponseTime && reply.RoundtripTime < pCriticalResponseTime)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkYellow;
                         }
-                        else if (reply.RoundtripTime >= criticalResponseTime)
+                        else if (reply.RoundtripTime >= pCriticalResponseTime)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
-                        Console.WriteLine($"Reply from {reply.Address} bytes={reply.Buffer.Length} time={reply.RoundtripTime}ms TTL={reply.Options?.Ttl}");
+                        Console.WriteLine($"Reply from {reply.Address} bytes={pBuffer.Length} time={reply.RoundtripTime}ms TTL={reply.Options.Ttl}");
                     }
                     else
                     {
@@ -108,7 +110,7 @@ namespace PingColors
                 {
                     Custom.Error($"Ping error: {e.Message}");
                 }
-                if (!speedMode) { Thread.Sleep(1000); } // Wait for 1 second before the next ping
+                if (!pSpeedMode) { Thread.Sleep(1000); } // Wait for 1 second before the next ping
             }
         }
     }
