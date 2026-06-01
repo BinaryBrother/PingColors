@@ -22,6 +22,10 @@ jobs:
 
     - name: Restore
       run: dotnet restore
+      
+    - name: Show publish directories
+      run: |
+        find . -type d | grep publish
 
     - name: Publish Linux AOT
       run: |
