@@ -23,10 +23,6 @@ jobs:
     - name: Restore
       run: dotnet restore
       
-    - name: Show publish directories
-      run: |
-        find . -type d | grep publish
-
     - name: Publish Linux AOT
       run: |
         dotnet publish \
@@ -34,6 +30,10 @@ jobs:
           -r linux-x64 \
           --self-contained true \
           /p:PublishAot=true
+          
+    - name: Show publish directories
+      run: |
+        find . -type d | grep publish
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
