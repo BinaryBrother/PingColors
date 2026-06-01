@@ -27,39 +27,39 @@ namespace PingColors
             Environment.Exit(0);
         }
 
-        internal void ErrorChecking(int warningResponseTime, int criticalResponseTime, int timeout, IPAddress host)
+        internal void ErrorChecking(int pWarningResponseTime, int pCriticalResponseTime, int pTimeout, IPAddress pHost)
         { 
-            if (warningResponseTime <= 0)
+            if (pWarningResponseTime <= 0)
             {
                 Custom.Error("Warning threshold must be a positive integer.");
                 Custom.ShowHelp();
             }
-            if (criticalResponseTime <= 0)
+            if (pCriticalResponseTime <= 0)
             {
                 Custom.Error("Critical threshold must be a positive integer.");
                 Custom.ShowHelp();
             }
-            if (timeout <= 0)
+            if (pTimeout <= 0)
             {
                 Custom.Error("Timeout must be a positive integer.");
                 Custom.ShowHelp();
             }
-            if (host == IPAddress.None)
+            if (pHost == null)
             {
                 Custom.Error("No valid host specified.");
                 Custom.ShowHelp();
             }
-            if (warningResponseTime >= criticalResponseTime)
+            if (pWarningResponseTime >= pCriticalResponseTime)
             {
                 Custom.Error("Warning threshold must be less than critical threshold.");
                 Custom.ShowHelp();
             }
-            if (criticalResponseTime <= warningResponseTime)
+            if (pCriticalResponseTime <= pWarningResponseTime)
             {
                 Custom.Error("Critical threshold must be greater than warning threshold.");
                 Custom.ShowHelp();
             }
-            if (timeout < warningResponseTime || timeout < criticalResponseTime)
+            if (pTimeout < pWarningResponseTime || pTimeout < pCriticalResponseTime)
             {
                 Custom.Error("Timeout must be greater than both warning and critical thresholds.");
                 Custom.ShowHelp();

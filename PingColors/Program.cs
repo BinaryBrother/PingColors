@@ -10,7 +10,7 @@ namespace PingColors
             int criticalResponseTime = 200; // Default critical threshold in milliseconds
             int timeout = 5000; // Default timeout for ping in milliseconds
             bool speedMode = false; // Default speed mode is off
-            IPAddress host = IPAddress.None;
+            IPAddress host = null;
             
             CLI commandLineInterface = new();
             Custom customMethods = new();
