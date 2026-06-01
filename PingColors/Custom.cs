@@ -44,7 +44,7 @@ namespace PingColors
                 Custom.Error("Timeout must be a positive integer.");
                 Custom.ShowHelp();
             }
-            if (host == null)
+            if (host == IPAddress.None)
             {
                 Custom.Error("No valid host specified.");
                 Custom.ShowHelp();
@@ -92,7 +92,9 @@ namespace PingColors
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
-                        Console.WriteLine($"Reply from {reply.Address} bytes={pBuffer.Length} time={reply.RoundtripTime}ms TTL={reply.Options?.Ttl}");
+                        string lReturn = $"Reply from {reply.Address} bytes={pBuffer.Length} time={reply.RoundtripTime}ms";
+                        if (reply.Options != null) { lReturn += $" TTL={reply.Options?.Ttl}"; }
+                        Console.WriteLine(lReturn);
                     }
                     else
                     {
