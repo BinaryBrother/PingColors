@@ -9,8 +9,9 @@ Options:
   -s, --speedmode       Super fast ping rate (default: false)
   -h, --help            Show this help message
 ```
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/73bf27fe-6391-4794-9788-10379c186bc1" />
 
-<img width="364" height="997" alt="image" src="https://github.com/user-attachments/assets/5943940e-e82a-48b1-a0be-7e1c87b102f3" />
+
 
 
 # Built with
