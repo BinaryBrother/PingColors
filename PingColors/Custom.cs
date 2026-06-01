@@ -44,7 +44,7 @@ namespace PingColors
                 Custom.Error("Timeout must be a positive integer.");
                 Custom.ShowHelp();
             }
-            if (pHost == null)
+            if (pHost == IPAddress.None)
             {
                 Custom.Error("No valid host specified.");
                 Custom.ShowHelp();
@@ -69,14 +69,13 @@ namespace PingColors
         internal void Ping(IPAddress pHost, int pTimeout, int pWarningResponseTime, int pCriticalResponseTime, bool pSpeedMode)
         {
             Ping pPingSender = new Ping();
-            byte[] pBuffer = new byte[32];
 
             while (true)
             {
                 try
                 {
                     // Send a basic ping request
-                    PingReply reply = pPingSender.Send(pHost, pTimeout, pBuffer);
+                    PingReply reply = pPingSender.Send(pHost, pTimeout); // Cannot use the Buffer param here, because Ubuntu requires elevated permissions.
 
                     if (reply.Status == IPStatus.Success)
                     {
@@ -92,7 +91,7 @@ namespace PingColors
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
-                        string lReturn = $"Reply from {reply.Address} bytes={pBuffer.Length} time={reply.RoundtripTime}ms";
+                        string lReturn = $"Reply from {reply.Address} bytes=32 time={reply.RoundtripTime}ms";
                         if (reply.Options != null) { lReturn += $" TTL={reply.Options?.Ttl}"; }
                         Console.WriteLine(lReturn);
                     }
