@@ -18,4 +18,4 @@ Options:
 
 
 # Built with
-The .NET 10 Framework
+The .NET 10 Framework.
