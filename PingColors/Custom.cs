@@ -92,7 +92,7 @@ namespace PingColors
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
                         string lReturn = $"Reply from {reply.Address} bytes=32 time={reply.RoundtripTime}ms";
-                        if (reply.Options != null) { lReturn += $" TTL={reply.Options?.Ttl}"; }
+                        if (reply.Options != null) { lReturn += $" TTL={reply.Options.Ttl}"; }
                         Console.WriteLine(lReturn);
                     }
                     else
