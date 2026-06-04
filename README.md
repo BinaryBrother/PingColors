@@ -18,4 +18,8 @@ Options:
 
 
 # Built with
-The .NET 10 Framework.
+The .NET 10 Framework, configured for AOT.
+
+# Tested on
+Windows 11 25H2
+Ubuntu 26.04
