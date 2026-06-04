@@ -40,7 +40,6 @@ namespace PingColors
                             if (Uri.CheckHostName(args[i]) != UriHostNameType.Unknown)
                             {
                                 host = Dns.GetHostAddresses(args[i]).First(address => address.AddressFamily == AddressFamily.InterNetwork);
-                                //Host = args[i]; // Assign the valid hostname or IP address
                             }
                             else
                             {
