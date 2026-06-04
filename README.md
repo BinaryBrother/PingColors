@@ -13,6 +13,8 @@ Options:
 # Screenshots
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/73bf27fe-6391-4794-9788-10379c186bc1" />
 <img width="968" height="1023" alt="image" src="https://github.com/user-attachments/assets/30505c5e-0b5a-45ff-bf65-cc8dbcb31046" />
+<img width="1701" height="913" alt="image" src="https://github.com/user-attachments/assets/01fcea67-f658-4c92-8871-b53398aea793" />
+
 
 
 
