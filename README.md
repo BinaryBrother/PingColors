@@ -21,5 +21,4 @@ Options:
 The .NET 10 Framework, configured for AOT.
 
 # Tested on
-Windows 11 25H2
-Ubuntu 26.04
+Windows 11 25H2 and Ubuntu 26.04
