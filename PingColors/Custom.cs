@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.NetworkInformation;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PingColors
 {
@@ -8,7 +9,8 @@ namespace PingColors
         public static void Error(string pData)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(pData);
+            Console.Write(pData.PadRight(Console.WindowWidth));
+            //Console.WriteLine(pData);
             Console.ResetColor();
         }
         public static void ShowHelp()
@@ -65,7 +67,24 @@ namespace PingColors
                 Custom.ShowHelp();
             }
         }
+        public static void Update(string text)
+        {
+            int left = Console.CursorLeft;
+            int top = Console.CursorTop;
 
+            int statusLine = Console.WindowHeight - 1;
+
+            Console.SetCursorPosition(0, statusLine);
+
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.Write(text.PadRight(Console.WindowWidth));
+
+            Console.ResetColor();
+
+            Console.SetCursorPosition(left, top);
+        }
         internal void Ping(IPAddress pHost, int pTimeout, int pWarningResponseTime, int pCriticalResponseTime, bool pSpeedMode)
         {
             Ping pPingSender = new Ping();
@@ -92,19 +111,20 @@ namespace PingColors
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
                         string lReturn = $"Reply from {reply.Address} bytes=32 time={reply.RoundtripTime}ms";
-                        if (reply.Options != null) { lReturn += $" TTL={reply.Options.Ttl}"; }
-                        Console.WriteLine(lReturn);
+                        if (reply.Options != null) { lReturn += $" TTL={reply.Options.Ttl}"; } // Ubuntu's PingReply does not include the Options property.
+                        Console.WriteLine(lReturn.PadRight(Console.WindowWidth));
+                        //Update($"Last ping: {reply.RoundtripTime}ms at {DateTime.Now:hh:mm:ss tt}"); // Update the status line with the last ping time and timestamp.
                     }
                     else
                     {
-                        Custom.Error($"Ping failed: {reply.Status}");
+                        Custom.Error($"Ping failed: {reply.Status}"); // This will catch cases where the ping request was sent but did not receive a successful response, such as timeouts or unreachable hosts.
                     }
                 }
                 catch (PingException e)
                 {
-                    Custom.Error($"Ping error: {e.Message}");
+                    Custom.Error($"Ping error: {e.Message}"); // This will catch exceptions related to the ping operation, such as network errors or invalid host.
                 }
-                if (!pSpeedMode) { Thread.Sleep(1000); } // Wait for 1 second before the next ping
+                if (!pSpeedMode) { Thread.Sleep(1000); } // Wait for 1 second before the next ping.
             }
         }
     }
