@@ -9,8 +9,8 @@ namespace PingColors
         public static void Error(string pData)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(pData.PadRight(Console.WindowWidth));
-            //Console.WriteLine(pData);
+            //Console.Write(pData.PadRight(Console.BufferWidth));
+            Console.WriteLine(pData);
             Console.ResetColor();
         }
         public static void ShowHelp()
@@ -76,7 +76,7 @@ namespace PingColors
 
             Console.SetCursorPosition(0, statusLine);
 
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            //Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.White;
 
             Console.Write(text.PadRight(Console.WindowWidth));
@@ -95,7 +95,6 @@ namespace PingColors
                 {
                     // Send a basic ping request
                     PingReply reply = pPingSender.Send(pHost, pTimeout); // Cannot use the Buffer param here, because Ubuntu requires elevated permissions.
-
                     if (reply.Status == IPStatus.Success)
                     {
                         if (reply.RoundtripTime < pWarningResponseTime)
@@ -112,8 +111,9 @@ namespace PingColors
                         }
                         string lReturn = $"Reply from {reply.Address} bytes=32 time={reply.RoundtripTime}ms";
                         if (reply.Options != null) { lReturn += $" TTL={reply.Options.Ttl}"; } // Ubuntu's PingReply does not include the Options property.
-                        Console.WriteLine(lReturn.PadRight(Console.WindowWidth));
-                        //Update($"Last ping: {reply.RoundtripTime}ms at {DateTime.Now:hh:mm:ss tt}"); // Update the status line with the last ping time and timestamp.
+                        //Console.Write(lReturn.PadRight(Console.BufferWidth));
+                        Console.WriteLine(lReturn);
+                        //Update("Last successful ping: " + DateTime.Now.ToString("hh:mm:ss tt"));
                     }
                     else
                     {
