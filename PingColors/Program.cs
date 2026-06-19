@@ -4,23 +4,51 @@ namespace PingColors
 {
     internal class Program
     {
+        /// <summary>
+        /// Application entry point.
+        /// Parses and validates command-line arguments, sets up console behavior, and starts the ping loop.
+        /// </summary>
+        /// <param name="args">Command-line arguments passed to the application. The <see cref="CLI.ParseArguments(string[])"/> method interprets these to set host, thresholds and modes.</param>
         static void Main(string[] args)
         {
-            int iWarningResponseTime = 80;       // Default warning threshold in milliseconds
-            int iCriticalResponseTime = 200;     // Default critical threshold in milliseconds
-            int iTimeout = 5000;                 // Default timeout for ping in milliseconds
-            bool bSpeedMode = false;             // Default speed mode is off
-            IPAddress oHost = IPAddress.None;    // Default host is none, will be set by CLI
+            // Create the CLI helper which holds configuration populated from defaults and command-line args.
+            CLI CLI = new CLI("PingColors");
 
-            CLI commandLineInterface = new();
-            Custom customMethods = new();
+            // Default warning threshold (milliseconds).
+            // Ping responses >= this value but < Critical will typically display a "warning" color/state. [Yellow]
+            CLI.iWarningResponseTime = 80;
 
-            Console.CancelKeyPress += delegate { Console.ResetColor(); Console.WriteLine("Exiting..."); };
-            Console.Title = "PingColors";
+            // Default critical threshold (milliseconds).
+            // Ping responses >= this value will typically display a "critical" color/state [Red].
+            CLI.iCriticalResponseTime = 200;
 
-            commandLineInterface.HandleArgs(ref iWarningResponseTime, ref iCriticalResponseTime, ref iTimeout, ref oHost, ref bSpeedMode, args);
-            customMethods.ErrorChecking(iWarningResponseTime, iCriticalResponseTime, iTimeout, oHost);
-            customMethods.Ping(oHost, iTimeout, iWarningResponseTime, iCriticalResponseTime, bSpeedMode);
+            // Default per-ping timeout (milliseconds).
+            // If a ping does not receive a reply within this interval it will be treated as a timeout/failure and displayed in [Red].
+            CLI.iTimeout = 5000;
+
+            // Default operation mode:
+            // false = normal mode (1 second pause between pings)
+            // true  = speed mode (Pings as fast as the server returns a ping)
+            CLI.bSpeedMode = false;
+
+            // Host to ping. Initialized to a sentinel value (no host) and set by argument parsing.
+            CLI.oHost = IPAddress.None;
+
+            // Parse and apply command-line arguments. This may override the defaults above.
+            // Expected to populate CLI.oHost and may adjust thresholds, timeout and modes.
+            CLI.ParseArguments(args);
+
+            // Validate the final configuration (thresholds, timeout and host). Throws or exits on invalid input.
+            Custom Custom = new Custom();
+            Custom.ErrorChecking(CLI.iWarningResponseTime, CLI.iCriticalResponseTime, CLI.iTimeout, CLI.oHost);
+
+            // Start the ping loop:
+            // - target: CLI.oHost
+            // - timeout per ping: CLI.iTimeout (ms)
+            // - warning threshold: CLI.iWarningResponseTime (ms)
+            // - critical threshold: CLI.iCriticalResponseTime (ms)
+            // - speed mode: CLI.bSpeedMode (true reduces delays)
+            Custom.Ping(CLI.oHost, CLI.iTimeout, CLI.iWarningResponseTime, CLI.iCriticalResponseTime, CLI.bSpeedMode);
         }
     }
 }

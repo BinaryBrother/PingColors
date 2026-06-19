@@ -5,40 +5,9 @@ namespace PingColors
 {
     internal class Custom
     {
-        public static void DrawStatusBar(string message, ConsoleColor backgroundColor = ConsoleColor.Black, ConsoleColor foregroundColor = ConsoleColor.White)
-        {
-            // Save current cursor position and colors
-            int savedLeft = Console.CursorLeft;
-            int savedTop = Console.CursorTop;
-            ConsoleColor savedBg = Console.BackgroundColor;
-            ConsoleColor savedFg = Console.ForegroundColor;
-
-            // Move to the last line of the console window
-            int statusRow = Console.WindowHeight - 1;
-            Console.SetCursorPosition(0, statusRow);
-
-            // Apply colors
-            Console.BackgroundColor = backgroundColor;
-            Console.ForegroundColor = foregroundColor;
-
-            // Pad or truncate the message to fill the full width
-            int width = Console.WindowWidth;
-            string statusText = message.Length >= width
-                ? message[..(width - 1)]          // truncate if too long (leave 1 char margin)
-                : message.PadRight(width);         // pad to fill the bar
-
-            Console.Write(statusText);
-
-            // Restore cursor position and colors
-            Console.SetCursorPosition(savedLeft, savedTop);
-            Console.BackgroundColor = savedBg;
-            Console.ForegroundColor = savedFg;
-        }
-    
         public static void Error(string pData)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            //Console.Write(pData.PadRight(Console.BufferWidth));
             Console.WriteLine(pData);
             Console.ResetColor();
         }
@@ -99,19 +68,18 @@ namespace PingColors
         internal void Ping(IPAddress pHost, int pTimeout, int pWarningResponseTime, int pCriticalResponseTime, bool pSpeedMode)
         {
             Ping oPingSender = new Ping();
-            int _PingPass = 0;
-            int _PingFail = 0;
+
             while (true)
             {
                 try
                 {
-                    if (_PingPass > 20 || _PingFail > 20) { _PingPass = 0; _PingFail = 0; }
 
                     PingReply reply = oPingSender.Send(pHost, pTimeout); // Cannot use the Buffer param here, because Ubuntu requires elevated permissions.
+                    bool success = reply.Status == IPStatus.Success;
+                    // Maintain the sliding window
                     if (reply.Status == IPStatus.Success)
                     {
-                        _PingPass++;
-                            if (reply.RoundtripTime < pWarningResponseTime)
+                        if (reply.RoundtripTime < pWarningResponseTime)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                         }
@@ -124,23 +92,18 @@ namespace PingColors
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
                         string lReturn = $"Reply from {reply.Address} bytes=32 time={reply.RoundtripTime}ms";
-                        if (reply.Options != null) { lReturn += $" TTL={reply.Options.Ttl}"; } // Ubuntu's PingReply does not include the Options property.
-                        //Console.Write(lReturn.PadRight(Console.BufferWidth));
+                        if (reply.Options != null) { lReturn += $" TTL={reply.Options.Ttl}"; } // Ubuntu's PingReply does not include the Options property
                         Console.WriteLine(lReturn);
-                        DrawStatusBar("Packet Loss: " + Math.Round(((double)_PingFail / (_PingFail + _PingPass)) * 100.0, 1) + "% | Time: " + DateTime.Now.ToString("hh:mm:ss tt"));
                     }
                     else
                     {
-                        _PingFail++;
                         Custom.Error($"Ping failed: {reply.Status}"); // This will catch cases where the ping request was sent but did not receive a successful response, such as timeouts or unreachable hosts.
-                        DrawStatusBar("Packet Loss: " + Math.Round(((double)_PingFail / (_PingFail + _PingPass)) * 100.0, 1) + "% | Time: " + DateTime.Now.ToString("hh:mm:ss tt"));
                     }
                 }
                 catch (PingException e)
                 {
-                    _PingFail++;
                     Custom.Error($"Ping error: {e.Message}"); // This will catch exceptions related to the ping operation, such as network errors or invalid host.
-                    DrawStatusBar("Packet Loss: " + Math.Round(((double)_PingFail / (_PingFail + _PingPass)) * 100.0, 1) + "% | Time: " + DateTime.Now.ToString("hh:mm:ss tt"));
+                    //DrawStatusBar("Packet Loss: " + Math.Round(((double)_PingFail / (_PingFail + _PingPass)) * 100.0, 1) + "% | Time: " + DateTime.Now.ToString("hh:mm:ss tt"));
                 }
                 if (!pSpeedMode) { Thread.Sleep(1000); } // Wait for 1 second before the next ping.
             }
