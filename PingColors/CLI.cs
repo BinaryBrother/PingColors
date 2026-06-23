@@ -14,7 +14,7 @@ namespace PingColors
         public CLI(string pTitle)
         {
             Console.Title = pTitle;
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.CancelKeyPress += delegate 
             { 
                 Console.ResetColor();

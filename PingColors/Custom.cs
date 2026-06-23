@@ -1,7 +1,5 @@
 ﻿using System.Net;
 using System.Net.NetworkInformation;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace PingColors
 {
