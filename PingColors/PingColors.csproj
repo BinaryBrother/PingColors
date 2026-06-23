@@ -12,6 +12,7 @@
 
     <PublishAot>true</PublishAot>
     <PublishTrimmed>True</PublishTrimmed>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>

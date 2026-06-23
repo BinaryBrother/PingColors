@@ -1,10 +1,24 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 
 namespace PingColors
 {
+
     internal class CLI
     {
+        private const int STD_OUTPUT_HANDLE = -11;
+        private const uint ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004;
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr GetStdHandle(int nStdHandle);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+
         public int iWarningResponseTime;     // Default warning threshold in milliseconds
         public int iCriticalResponseTime;   // Default critical threshold in milliseconds
         public int iTimeout;               // Default timeout for ping in milliseconds
@@ -22,8 +36,25 @@ namespace PingColors
                 //Console.SetCursorPosition(0, Console.WindowHeight - 1);
                 Console.WriteLine("Exiting..."); 
             };
+            if (OperatingSystem.IsWindows())
+            {
+                ConfigureWindowsVirtualTerminal();
+                //Console.WriteLine("Windows Virtual Terminal processing enabled.");
+            }
         }
-
+        private static void ConfigureWindowsVirtualTerminal()
+        {
+            IntPtr iStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (iStdOut != IntPtr.Zero && iStdOut != new IntPtr(-1))
+            {
+                if (GetConsoleMode(iStdOut, out uint outConsoleMode))
+                {
+                    outConsoleMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+                    SetConsoleMode(iStdOut, outConsoleMode);
+                    Console.WriteLine("Windows Virtual Terminal processing enabled.");
+                }
+            }
+        }
         internal void ParseArguments(string[] pArgs)
         {
             try
