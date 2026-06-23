@@ -47,7 +47,7 @@ namespace PingColors
             // - timeout per ping: CLI.iTimeout (ms)
             // - warning threshold: CLI.iWarningResponseTime (ms)
             // - critical threshold: CLI.iCriticalResponseTime (ms)
-            // - speed mode: CLI.bSpeedMode (true reduces delays)
+            // - speed mode: CLI.bSpeedMode (true reduces return delay)
             Custom.Ping(CLI.oHost, CLI.iTimeout, CLI.iWarningResponseTime, CLI.iCriticalResponseTime, CLI.bSpeedMode);
         }
     }

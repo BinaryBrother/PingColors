@@ -5,18 +5,23 @@ namespace PingColors
 {
     internal class CLI
     {
-        private readonly string sTitle;
-        public int iWarningResponseTime = 80;       // Default warning threshold in milliseconds
-        public int iCriticalResponseTime = 200;     // Default critical threshold in milliseconds
-        public int iTimeout = 5000;                 // Default timeout for ping in milliseconds
-        public bool bSpeedMode = false;             // Default: speed mode off (reduces logging/pauses)
-        public IPAddress oHost = IPAddress.None;    // Host to ping; set by CLI parsing
+        public int iWarningResponseTime;     // Default warning threshold in milliseconds
+        public int iCriticalResponseTime;   // Default critical threshold in milliseconds
+        public int iTimeout;               // Default timeout for ping in milliseconds
+        public bool bSpeedMode;           // Default: speed mode off (reduces logging/pauses)
+        public IPAddress? oHost;         // Host to ping; set by CLI parsing
 
         public CLI(string pTitle)
         {
-            this.sTitle = pTitle;
-            Console.CancelKeyPress += delegate { Console.ResetColor(); Console.WriteLine("Exiting..."); };
-            Console.Title = "PingColors";
+            Console.Title = pTitle;
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.CancelKeyPress += delegate 
+            { 
+                Console.ResetColor();
+                Console.WriteLine(); // Move to a new line after Ctrl+C
+                //Console.SetCursorPosition(0, Console.WindowHeight - 1);
+                Console.WriteLine("Exiting..."); 
+            };
         }
 
         internal void ParseArguments(string[] pArgs)
