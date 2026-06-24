@@ -33,28 +33,18 @@ namespace PingColors
             { 
                 Console.ResetColor();
                 Console.WriteLine(); // Move to a new line after Ctrl+C
-                //Console.SetCursorPosition(0, Console.WindowHeight - 1);
                 Console.WriteLine("Exiting..."); 
             };
             if (OperatingSystem.IsWindows())
             {
-                ConfigureWindowsVirtualTerminal();
-                //Console.WriteLine("Windows Virtual Terminal processing enabled.");
-            }
-        }
-        private static void ConfigureWindowsVirtualTerminal()
-        {
-            IntPtr iStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-            if (iStdOut != IntPtr.Zero && iStdOut != new IntPtr(-1))
-            {
-                if (GetConsoleMode(iStdOut, out uint outConsoleMode))
+                IntPtr handle = GetStdHandle(STD_OUTPUT_HANDLE);
+                if (GetConsoleMode(handle, out uint mode))
                 {
-                    outConsoleMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-                    SetConsoleMode(iStdOut, outConsoleMode);
-                    Console.WriteLine("Windows Virtual Terminal processing enabled.");
+                    SetConsoleMode(handle, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
                 }
             }
         }
+
         internal void ParseArguments(string[] pArgs)
         {
             try
