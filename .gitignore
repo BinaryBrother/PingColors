@@ -5,3 +5,4 @@ Properties/
 /PingColors/Properties
 PingColors/Properties/PublishProfiles/FolderProfile.pubxml.user
 /PingColors/Properties/PublishProfiles
+*.user
