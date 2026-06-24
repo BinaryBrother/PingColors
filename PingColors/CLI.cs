@@ -5,19 +5,21 @@ using System.Runtime.InteropServices;
 namespace PingColors
 {
 
-    internal class CLI
+    public partial class CLI
     {
         private const int STD_OUTPUT_HANDLE = -11;
         private const uint ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004;
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern IntPtr GetStdHandle(int nStdHandle);
+        [LibraryImport("kernel32.dll", SetLastError = true)]
+        public static partial IntPtr GetStdHandle(int nStdHandle);
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+        [LibraryImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static partial bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+        [LibraryImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static partial bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
 
         public int iWarningResponseTime;     // Default warning threshold in milliseconds
         public int iCriticalResponseTime;   // Default critical threshold in milliseconds
