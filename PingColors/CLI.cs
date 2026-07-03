@@ -21,16 +21,17 @@ namespace PingColors
         [return: MarshalAs(UnmanagedType.Bool)]
         private static partial bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
 
-        public int iWarningResponseTime;     // Default warning threshold in milliseconds
-        public int iCriticalResponseTime;   // Default critical threshold in milliseconds
-        public int iTimeout;               // Default timeout for ping in milliseconds
-        public bool bSpeedMode;           // Default: speed mode off (reduces logging/pauses)
-        public IPAddress? oHost;         // Host to ping; set by CLI parsing
+        public int WarningResponseTime { get; set; }
+        public int CriticalResponseTime { get; set; }
+        public int Timeout { get; set; }
+        public bool SpeedMode { get; set; }
+        public IPAddress? Host { get; set; }
 
         public CLI(string pTitle)
         {
             Console.Title = pTitle;
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.CursorVisible = false;
             Console.CancelKeyPress += delegate 
             { 
                 Console.ResetColor();
@@ -58,20 +59,20 @@ namespace PingColors
                     {
                         case "--warning":
                         case "-w":
-                            if (i + 1 < pArgs.Length) { iWarningResponseTime = int.Parse(pArgs[++i]); }
+                            if (i + 1 < pArgs.Length) { WarningResponseTime = int.Parse(pArgs[++i]); }
                             break;
 
                         case "--critical":
                         case "-c":
-                            if (i + 1 < pArgs.Length) { iCriticalResponseTime = int.Parse(pArgs[++i]); }
+                            if (i + 1 < pArgs.Length) { CriticalResponseTime = int.Parse(pArgs[++i]); }
                             break;
                         case "--timeout":
                         case "-t":
-                            if (i + 1 < pArgs.Length) { iTimeout = int.Parse(pArgs[++i]); }
+                            if (i + 1 < pArgs.Length) { Timeout = int.Parse(pArgs[++i]); }
                             break;
                         case "--speedmode":
                         case "-s":
-                            bSpeedMode = true;
+                            SpeedMode = true;
                             break;
                         case "--help":
                         case "-h":
@@ -81,7 +82,7 @@ namespace PingColors
                         default:
                             if (Uri.CheckHostName(pArgs[i]) != UriHostNameType.Unknown)
                             {
-                                oHost = Dns.GetHostAddresses(pArgs[i]).First(address => address.AddressFamily == AddressFamily.InterNetwork);
+                                Host = Dns.GetHostAddresses(pArgs[i]).First(address => address.AddressFamily == AddressFamily.InterNetwork);
                             }
                             else
                             {

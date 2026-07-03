@@ -5,7 +5,7 @@ namespace PingColors
 {
     internal class Custom
     {
-        public static void Error(string pData)
+        internal static void Error(string pData)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             //Console.WriteLine(pData);
@@ -28,7 +28,7 @@ namespace PingColors
             Environment.Exit(0);
         }
 
-        internal void ErrorChecking(int pWarningResponseTime, int pCriticalResponseTime, int pTimeout, IPAddress pHost)
+        internal static void ErrorChecking(int pWarningResponseTime, int pCriticalResponseTime, int pTimeout, IPAddress pHost)
         {
             if (pWarningResponseTime <= 0)
             {
@@ -66,7 +66,7 @@ namespace PingColors
                 Custom.ShowHelp();
             }
         }
-        void DrawStatusBar(int sent, int lost)
+        private void DrawStatusBar(int sent, int lost)
         {;
             int statusRow = Console.WindowHeight - 1;
             double lossPercent = sent == 0 ? 0.0 : (lost * 100.0 / sent);
@@ -154,7 +154,7 @@ namespace PingColors
                     lostPackets++;
                     Custom.Error($"Ping error: {e.Message}"); // This will catch exceptions related to the ping operation, such as network errors or invalid host.
                 }
-                //DrawStatusBar(sentPackets,lostPackets); // Placeholder values for sent and lost packets. You can implement a proper counter to track these values.
+                DrawStatusBar(sentPackets,lostPackets); // Placeholder values for sent and lost packets. You can implement a proper counter to track these values.
                 if (!pSpeedMode) { Thread.Sleep(1000); } // Wait for 1 second before the next ping.
             }
         }
