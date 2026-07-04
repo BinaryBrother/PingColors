@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Runtime.InteropServices;
 
 namespace PingColors
 {
@@ -10,7 +9,7 @@ namespace PingColors
         /// Parses and validates command-line arguments, sets up console behavior, and starts the ping loop.
         /// </summary>
         /// <param name="args">Command-line arguments passed to the application. The <see cref="CLI.ParseArguments(string[])"/> method interprets these to set host, thresholds and modes.</param>
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             // Create the CLI helper which holds configuration populated from defaults and command-line args.
             CLI CLI = new CLI("PingColors");
@@ -49,7 +48,7 @@ namespace PingColors
             // - warning threshold: CLI.WarningResponseTime (ms)
             // - critical threshold: CLI.CriticalResponseTime (ms)
             // - speed mode: CLI.SpeedMode (true reduces return delay)
-            Custom.Ping(CLI.Host, CLI.Timeout, CLI.WarningResponseTime, CLI.CriticalResponseTime, CLI.SpeedMode);
+            await Custom.PingLoop(CLI.Host, CLI.Timeout, CLI.WarningResponseTime, CLI.CriticalResponseTime, CLI.SpeedMode);
         }
     }
 }

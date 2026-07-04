@@ -66,7 +66,7 @@ namespace PingColors
                 Custom.ShowHelp();
             }
         }
-        private void DrawStatusBar(int sent, int lost)
+        private static void DrawStatusBar(int sent, int lost)
         {;
             int statusRow = Console.WindowHeight - 1;
             double lossPercent = sent == 0 ? 0.0 : (lost * 100.0 / sent);
@@ -82,7 +82,7 @@ namespace PingColors
             Console.ResetColor();
             Console.SetCursorPosition(0, saved); // restore cursor to log area
         }
-        internal void DrawSpecialEffects(string pText)
+        private static void DrawSpecialEffects(string pText)
         {
             int width = pText.Length + 4; // Padding of 2 spaces on each side
 
@@ -107,7 +107,7 @@ namespace PingColors
             Console.Write("\x1b[0m"); // Reset colors
             //Console.ResetColor();
         }
-        internal void Ping(IPAddress pHost, int pTimeout, int pWarningResponseTime, int pCriticalResponseTime, bool pSpeedMode)
+        internal static async Task PingLoop(IPAddress pHost, int pTimeout, int pWarningResponseTime, int pCriticalResponseTime, bool pSpeedMode)
         {
             Ping oPingSender = new Ping();
             int sentPackets = 0;
@@ -118,14 +118,13 @@ namespace PingColors
             {
                 try
                 {
+                    PingReply reply = await oPingSender.SendPingAsync(pHost, pTimeout); // Cannot use the Buffer param here, because Ubuntu requires elevated permissions.
+                    //PingReply reply = oPingSender.Send(pHost, pTimeout); // Cannot use the Buffer param here, because Ubuntu requires elevated permissions.
 
-                    PingReply reply = oPingSender.Send(pHost, pTimeout); // Cannot use the Buffer param here, because Ubuntu requires elevated permissions.
-                    //bool success = reply.Status == IPStatus.Success;
                     sentPackets++;
-                    // Maintain the sliding window
+
                     if (reply.Status == IPStatus.Success)
                     {
-
                         if (reply.RoundtripTime < pWarningResponseTime)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -155,7 +154,7 @@ namespace PingColors
                     Custom.Error($"Ping error: {e.Message}"); // This will catch exceptions related to the ping operation, such as network errors or invalid host.
                 }
                 DrawStatusBar(sentPackets,lostPackets); // Placeholder values for sent and lost packets. You can implement a proper counter to track these values.
-                if (!pSpeedMode) { Thread.Sleep(1000); } // Wait for 1 second before the next ping.
+                if (!pSpeedMode) { await Task.Delay(1000); } // Wait for 1 second before the next ping.
             }
         }
     }
