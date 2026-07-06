@@ -12,7 +12,7 @@ Options:
 
 # Screenshots
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/403657eb-c866-4da5-842f-e59b87fad164" />
-<img width="968" height="1023" alt="image" src="https://github.com/user-attachments/assets/30505c5e-0b5a-45ff-bf65-cc8dbcb31046" />
+<img width="1000" height="592" alt="image" src="https://github.com/user-attachments/assets/04dcf27a-5f94-4c89-a746-07228a83452f" />
 <img width="1701" height="913" alt="image" src="https://github.com/user-attachments/assets/01fcea67-f658-4c92-8871-b53398aea793" />
 
 
