@@ -65,65 +65,25 @@ namespace PingColors
                 Custom.ShowHelp();
             }
         }
-        private static void DrawStatusBar(int sent, int lost, int warningThreshold, int criticalThreshold, long? roundtripTime = 0)
+        private static void DrawStatusBar(int sent, int lost)
         {
-            if (Console.WindowHeight < 3) { return; }
-            string bar1 = "";
-            int firstLineRow = Console.WindowHeight - 2;
-            int secondLineRow = Console.WindowHeight - 1;
+            if (Console.WindowHeight < 2) { return; }
+            int firstLineRow = Console.WindowHeight - 1;
             int consoleWidth = Console.WindowWidth - 1;
-
             int savedTop = Console.CursorTop;
             int savedLeft = Console.CursorLeft;
             double lossPercent = sent == 0 ? 0.0 : (lost * 100.0 / sent);
 
-            // ==========================================
-            // FIX: MANUAL LOG SCROLL ENGINE
-            // ==========================================
-            // If the active text log hits our status bar boundary, shift the entire 
-            // console screen area up by 1 row to simulate natural terminal scrolling.
-            if (savedTop >= firstLineRow)
-            {
-                // Shift everything from row 1 down to the line above the status bar UP by 1 row
-                if (OperatingSystem.IsWindows()) { Console.MoveBufferArea(0, 1, Console.WindowWidth, firstLineRow - 1, 0, 0); }
-
-                // Push our tracking pointer back up to the newly cleared line
-                savedTop = firstLineRow - 1;
-            }
-            if (roundtripTime.HasValue)
-            {
-                if (roundtripTime.Value < warningThreshold)
-                {
-                    bar1 += "\e[32m███\e[0m";
-                }
-                else if (roundtripTime.Value >= warningThreshold && roundtripTime.Value < criticalThreshold)
-                {
-                    bar1 += "\e[33m██████\e[0m";
-                }
-                else if (roundtripTime.Value >= criticalThreshold)
-                {
-                    bar1 += "\e[31m██████████\e[0m";
-                }
-                else
-                {
-                    bar1 += "\e[31m█████████████\e[0m";
-                }
-                // bar1 = $"███ Last RTT: {roundtripTime.Value} ms █";
-            }
-            //string rttText = roundtripTime.HasValue ? $"{roundtripTime.Value} ms" : "Timeout";
-            //string bar1 = $"█ Last RTT: {rttText} █";
             string bar2 = $"█ Packets: {sent} █ Lost: {lost} █ Loss: {lossPercent:F1}% █";
-
-            // --- LINE 1 ---
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.SetCursorPosition(0, firstLineRow);
-            Console.Write(bar1.PadRight(consoleWidth));
+            Console.Write(bar2.PadRight(consoleWidth));
+            Console.ResetColor();
 
-            // --- LINE 2 ---
-            Console.SetCursorPosition(0, secondLineRow);
-            Console.Write(bar2.PadRight(consoleWidth - 1)); // -1 keeps the bottom-right corner empty to prevent glitch scrolling
+            ////Console.SetCursorPosition(0, secondLineRow);
+            //Console.Write(bar1.PadRight(consoleWidth));
 
-            // --- RESTORE CURSOR SAFELY ---
-            Console.SetCursorPosition(savedLeft, savedTop);
+            Console.SetCursorPosition(savedLeft, savedTop); // restore cursor to log area
         }
         private static void DrawSpecialEffects(string pText)
         {
@@ -153,7 +113,7 @@ namespace PingColors
         public static async Task PingLoop(IPAddress pHost, int pTimeout, int pWarningResponseTime, int pCriticalResponseTime, bool pSpeedMode)
         {
             Ping oPingSender = new Ping();
-            PingReply reply = null;
+            //PingReply reply = null;
             int sentPackets = 0;
             int lostPackets = 0;
             DrawSpecialEffects($"=== Ping, With Color! ===");
@@ -162,7 +122,7 @@ namespace PingColors
             {
                 try
                 {
-                    reply = await oPingSender.SendPingAsync(pHost, pTimeout); // Cannot use the Buffer param here, because Ubuntu requires elevated permissions.
+                    PingReply reply = await oPingSender.SendPingAsync(pHost, pTimeout); // Cannot use the Buffer param here, because Ubuntu requires elevated permissions.
 
                     sentPackets++;
 
@@ -196,7 +156,7 @@ namespace PingColors
                     lostPackets++;
                     Custom.Error($"Ping error: {e.Message}"); // This will catch exceptions related to the ping operation, such as network errors or invalid host.
                 }
-                DrawStatusBar(sentPackets,lostPackets, pWarningResponseTime, pCriticalResponseTime, reply.RoundtripTime); // Placeholder values for sent and lost packets. You can implement a proper counter to track these values.
+                DrawStatusBar(sentPackets,lostPackets); // Placeholder values for sent and lost packets. You can implement a proper counter to track these values.
                 if (!pSpeedMode) { await Task.Delay(1000); } // Wait for 1 second before the next ping.
             }
         }
