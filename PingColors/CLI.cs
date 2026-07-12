@@ -32,12 +32,8 @@ namespace PingColors
             Console.Title = pTitle;
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.CursorVisible = false;
-            Console.CancelKeyPress += delegate 
-            { 
-                Console.ResetColor();
-                Console.WriteLine(); // Move to a new line after Ctrl+C
-                Console.WriteLine("Exiting..."); 
-            };
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(OnClose);
+
             if (OperatingSystem.IsWindows())
             {
                 IntPtr handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -47,7 +43,12 @@ namespace PingColors
                 }
             }
         }
-
+        protected static void OnClose(object? sender, ConsoleCancelEventArgs e)
+        {
+            Console.ResetColor();
+            Console.WriteLine(); // Move to a new line after Ctrl+C
+            Console.WriteLine("Exiting...");
+        }
         internal void ParseArguments(string[] pArgs)
         {
             try
