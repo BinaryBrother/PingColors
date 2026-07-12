@@ -85,7 +85,7 @@ namespace PingColors
             if (savedTop >= firstLineRow)
             {
                 // Shift everything from row 1 down to the line above the status bar UP by 1 row
-                Console.MoveBufferArea(0, 1, Console.WindowWidth, firstLineRow - 1, 0, 0);
+                if (OperatingSystem.IsWindows()) { Console.MoveBufferArea(0, 1, Console.WindowWidth, firstLineRow - 1, 0, 0); }
 
                 // Push our tracking pointer back up to the newly cleared line
                 savedTop = firstLineRow - 1;
