@@ -75,7 +75,7 @@ namespace PingColors
             double lossPercent = sent == 0 ? 0.0 : (lost * 100.0 / sent);
 
             string bar2 = $"█ Packets: {sent} █ Lost: {lost} █ Loss: {lossPercent:F1}% █";
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(0, firstLineRow);
             Console.Write(bar2.PadRight(consoleWidth));
             Console.ResetColor();
@@ -116,7 +116,7 @@ namespace PingColors
             //PingReply reply = null;
             int sentPackets = 0;
             int lostPackets = 0;
-            DrawSpecialEffects($"=== Ping, With Color! ===");
+            DrawSpecialEffects($"=== Ping, With Colors! ===");
 
             while (true)
             {
